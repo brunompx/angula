@@ -1,0 +1,11 @@
+package components
+
+import "github.com/brunompx/go-delicatessen/model"
+
+templ ProductsList(products []model.Product) {
+	<ul id="product-list" class="flex my-4 flex-wrap m-auto w-2/3">
+		for _, product := range products {
+			@ProductTile(&product)
+		}
+	</ul>
+}

@@ -1,0 +1,22 @@
+package components
+
+import "github.com/brunompx/go-delicatessen/model"
+import "fmt"
+
+templ ProductTile(product *model.Product) {
+	<li
+		id={ fmt.Sprintf("product-%d", product.ID) }
+		class="flex flex-col w-1/4 bg-gray-200 rounded-md shadow-md p-4 m-4  border-gray-300 content-center justify-between text-center"
+	>
+		<span class="text-sm text-gray-900 mb-4">{ product.Name }: { product.Description } { product.Price } from { string(product.Stock) }</span>
+
+		<button
+			hx-delete={ fmt.Sprintf("/products/%d", product.ID) }
+			hx-swap="delete"
+			hx-target={ fmt.Sprintf("#product-%d", product.ID) }
+			class="text-red-500 px-2"
+		>
+			Delete
+		</button>
+	</li>
+}
