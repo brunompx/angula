@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/brunompx/go-delicatessen/handlers"
-	"github.com/brunompx/go-delicatessen/storage"
+	"github.com/brunompx/angula/handlers"
+	"github.com/brunompx/angula/storage"
 	"github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )

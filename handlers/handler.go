@@ -1,6 +1,6 @@
 package handlers
 
-import "github.com/brunompx/go-delicatessen/storage"
+import "github.com/brunompx/angula/storage"
 
 type Handler struct {
 	store *storage.Storage

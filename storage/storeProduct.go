@@ -3,7 +3,7 @@ package storage
 import (
 	"database/sql"
 
-	"github.com/brunompx/go-delicatessen/model"
+	"github.com/brunompx/angula/model"
 )
 
 type StoreProduct interface {

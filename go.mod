@@ -1,4 +1,4 @@
-module github.com/brunompx/go-delicatessen
+module github.com/brunompx/angula
 
 go 1.22.5
 

@@ -8,7 +8,7 @@ package components
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/brunompx/go-delicatessen/model"
+import "github.com/brunompx/angula/model"
 import "fmt"
 
 func ProductTile(product *model.Product) templ.Component {

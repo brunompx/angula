@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/brunompx/go-delicatessen/components"
-	"github.com/brunompx/go-delicatessen/model"
-	"github.com/brunompx/go-delicatessen/views"
+	"github.com/brunompx/angula/components"
+	"github.com/brunompx/angula/model"
+	"github.com/brunompx/angula/views"
 )
 
 func (h *Handler) HandleListProducts(w http.ResponseWriter, r *http.Request) {

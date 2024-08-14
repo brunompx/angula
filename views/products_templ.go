@@ -8,8 +8,8 @@ package views
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/brunompx/go-delicatessen/model"
-import "github.com/brunompx/go-delicatessen/components"
+import "github.com/brunompx/angula/model"
+import "github.com/brunompx/angula/components"
 import "strconv"
 
 func Products(products []model.Product, categories []model.Category, isAddingProducs bool) templ.Component {
