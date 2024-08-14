@@ -83,7 +83,7 @@ func Products(products []model.Product, categories []model.Category, isAddingPro
 						return templ_7745c5c3_Err
 					}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select> <input type=\"text\" name=\"name\" placeholder=\"Product\" autocomplete=\"off\"> <input type=\"text\" name=\"description\" placeholder=\"Description\" autocomplete=\"off\"> <input type=\"checkbox\" name=\"active\" placeholder=\"Active\" autocomplete=\"off\"> <input type=\"number\" name=\"price\" placeholder=\"Price\" autocomplete=\"off\"> <input type=\"number\" name=\"stock\" placeholder=\"Stock\" autocomplete=\"off\"> <button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\">Add</button></form>")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select> <input type=\"text\" name=\"name\" placeholder=\"Product\" autocomplete=\"off\"> <input type=\"text\" name=\"description\" placeholder=\"Description\" autocomplete=\"off\"> <input type=\"checkbox\" name=\"active\" placeholder=\"Active\" autocomplete=\"off\"> <input type=\"number\" name=\"price\" placeholder=\"Price\" autocomplete=\"off\"> <input type=\"number\" name=\"stock\" placeholder=\"Stock\" autocomplete=\"off\"> <button class=\"button\">Add</button></form>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
