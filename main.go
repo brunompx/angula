@@ -9,7 +9,6 @@ import (
 	"github.com/brunompx/angula/handlers"
 	"github.com/brunompx/angula/storage"
 	"github.com/go-sql-driver/mysql"
-	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -32,26 +31,34 @@ func main() {
 
 	initStorage(db)
 
-	router := mux.NewRouter()
-
 	handler := handlers.New(store)
 
-	router.HandleFunc("/", handler.HandleHome).Methods("GET")
-
-	//router.HandleFunc("/cars", handler.HandleListCars).Methods("GET")
-	//router.HandleFunc("/cars", handler.HandleAddCar).Methods("POST")
-	//router.HandleFunc("/cars/{id}", handler.HandleDeleteCar).Methods("DELETE")
-	//router.HandleFunc("/cars/search", handler.HandleSearchCar).Methods("GET")
-
-	router.HandleFunc("/products", handler.HandleListProducts).Methods("GET")
-	router.HandleFunc("/products", handler.HandleAddProduct).Methods("POST")
-	router.HandleFunc("/products/search", handler.HandleSearchProduct).Methods("GET")
-
+	//Using gorilla/mux
+	//router := mux.NewRouter()
+	//router.HandleFunc("/", handler.HandleHome).Methods("GET")
+	//router.HandleFunc("/products", handler.HandleListProducts).Methods("GET")
+	//router.HandleFunc("/products", handler.HandleAddProduct).Methods("POST")
+	//router.HandleFunc("/products/search", handler.HandleSearchProduct).Methods("GET")
+	//router.HandleFunc("/products/{id}", handler.HandleDeleteProduct).Methods("DELETE")
 	// serve files in public
-	router.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+	//router.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+	//fmt.Printf("Listening on %v\n", "localhost:8080")
+	//http.ListenAndServe(":8080", router)
 
-	fmt.Printf("Listening on %v\n", "localhost:8080")
-	http.ListenAndServe(":8080", router)
+	router := http.NewServeMux()
+	router.HandleFunc("GET /", handler.HandleHome)
+
+	router.HandleFunc("GET /products", handler.HandleListProducts)
+	router.HandleFunc("POST /products", handler.HandleAddProduct)
+	router.HandleFunc("GET /products/search", handler.HandleSearchProduct)
+	//router.HandleFunc("DELETE /products/{id}", handler.HandleDeleteProduct).Methods("DELETE")
+
+	server := http.Server{
+
+		Addr:    ":8080",
+		Handler: router,
+	}
+	server.ListenAndServe()
 }
 
 func initStorage(db *sql.DB) {

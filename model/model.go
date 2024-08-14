@@ -2,16 +2,6 @@ package model
 
 import "strconv"
 
-type Car struct {
-	ID        int    `json:"id"`
-	Brand     string `json:"brand"`
-	Make      string `json:"make"`
-	Model     string `json:"model"`
-	Year      string `json:"year"`
-	ImageURL  string `json:"imageURL"`
-	CreatedAt string `json:"createdAt"`
-}
-
 type Product struct {
 	ID          int    `json:"id"`
 	User        string `json:"user"`
@@ -32,4 +22,10 @@ type Category struct {
 
 func (c *Category) IDS() string {
 	return strconv.Itoa(c.ID)
+}
+
+type Order struct {
+}
+
+type OrderItem struct {
 }
