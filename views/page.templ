@@ -12,11 +12,6 @@ templ Page(nav bool) {
 		</head>
 		<body>
 			if nav {
-				<nav class="navbar is-sticky-top navigation" role="navigation">
-					<a href="/" class="ml-6">Home</a>
-					<a href="/products" class="ml-6">Products</a>
-				</nav>
-
 
 				<nav class="navbar is-sticky-top navigation" role="navigation" aria-label="main navigation">
 				<div class="container">
@@ -30,8 +25,6 @@ templ Page(nav bool) {
 					</div>
 				</div>
 				</nav>
-
-
 			}
 			{ children... }
 		</body>

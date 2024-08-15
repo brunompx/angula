@@ -3,9 +3,11 @@ package components
 import "github.com/brunompx/angula/model"
 
 templ ProductsList(products []model.Product) {
-	<ul id="product-list" class="flex my-4 flex-wrap m-auto w-2/3">
+
+	
+	<div id="product-list" class="columns is-multiline">
 		for _, product := range products {
 			@ProductTile(&product)
 		}
-	</ul>
+	</div>
 }
