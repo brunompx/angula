@@ -26,12 +26,12 @@ func Page(nav bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><title>Car Show</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css\"><script src=\"https://unpkg.com/htmx.org@1.9.10\" defer></script></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><title>Angula</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css\"><script src=\"https://unpkg.com/htmx.org@1.9.10\" defer></script></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if nav {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"navbar is-sticky-top navigation\" role=\"navigation\" aria-label=\"main navigation\"><div class=\"container\"><div id=\"navbar-links\" class=\"navbar-menu\"><div class=\"navbar-start ml-auto\"><a class=\"navbar-item\" href=\"/\" class=\"ml-6\">Home</a> <a class=\"navbar-item\" href=\"/products\" class=\"ml-6\">Products</a></div></div></div></nav>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"navbar is-primary\"><div id=\"navbar-links\" class=\"navbar-menu\"><div class=\"navbar-start ml-auto\"><a class=\"navbar-item\" href=\"/\">Home</a> <a class=\"navbar-item\" href=\"/products\">Products</a></div></div></nav>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -6,19 +6,29 @@ import "fmt"
 templ ProductTile(product *model.Product) {
 
 	<div id={ fmt.Sprintf("product-%d", product.ID) } class="column is-3-widescreen is-4-desktop is-6-tablet">
-		<div class="card match-height" style="height: 290.188px;">
-			<div class="card-body">
-				<h3 class="card-title h4">{ product.Name }</h3>
-				<p class="card-text">{ product.Description } { product.Price } { string(product.Stock) }</p>
-				<button
-					hx-delete={ fmt.Sprintf("/products/%d", product.ID) }
-					hx-swap="delete"
-					hx-target={ fmt.Sprintf("#product-%d", product.ID) }
-					class="text-red-500 px-2"
-				>
-					Delete
-				</button>
+		<div class="card match-height" >
+			<div class="card-content">
+				<p class="title">{ product.Name }</p>
+				<p class="subtitle">{ product.Description } { product.Price } { string(product.Stock) }</p>
 			</div>
+			<footer class="card-footer">
+				<p class="card-footer-item">
+				<span>
+					<a 
+						hx-delete={ fmt.Sprintf("/products/%d", product.ID) }
+						hx-swap="delete"
+						hx-target={ fmt.Sprintf("#product-%d", product.ID) }
+						class="inline-flex items-center font-semibold text-dark" >
+						Delete
+					</a>
+				</span>
+				</p>
+				<p class="card-footer-item">
+				<span> <a href="#">Edit</a> </span>
+				</p>
+			</footer>
+
+
 		</div>
 	</div>
 

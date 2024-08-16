@@ -47,7 +47,7 @@ func Products(products []model.Product, categories []model.Category, isAddingPro
 				return templ_7745c5c3_Err
 			}
 			if isAddingProducs {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"/products\" hx-swap=\"afterbegin\" hx-target=\"#product-list\"><label for=\"cars\">Choose a category:</label> <select id=\"category\" name=\"category\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"/products\" hx-swap=\"afterbegin\" hx-target=\"#product-list\"><div class=\"field\"><label class=\"label\">Category</label><div class=\"select\"><select id=\"category\" name=\"category\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -59,7 +59,7 @@ func Products(products []model.Product, categories []model.Category, isAddingPro
 					var templ_7745c5c3_Var3 string
 					templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(category.IDS())
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/products.templ`, Line: 23, Col: 39}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/products.templ`, Line: 26, Col: 41}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 					if templ_7745c5c3_Err != nil {
@@ -72,7 +72,7 @@ func Products(products []model.Product, categories []model.Category, isAddingPro
 					var templ_7745c5c3_Var4 string
 					templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(category.Name)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/products.templ`, Line: 23, Col: 57}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/products.templ`, Line: 26, Col: 59}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 					if templ_7745c5c3_Err != nil {
@@ -83,12 +83,12 @@ func Products(products []model.Product, categories []model.Category, isAddingPro
 						return templ_7745c5c3_Err
 					}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select> <input type=\"text\" name=\"name\" placeholder=\"Product\" autocomplete=\"off\"> <input type=\"text\" name=\"description\" placeholder=\"Description\" autocomplete=\"off\"> <input type=\"checkbox\" name=\"active\" placeholder=\"Active\" autocomplete=\"off\"> <input type=\"number\" name=\"price\" placeholder=\"Price\" autocomplete=\"off\"> <input type=\"number\" name=\"stock\" placeholder=\"Stock\" autocomplete=\"off\"> <button class=\"button\">Add</button></form>")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select></div></div><div class=\"field\"><label class=\"label\">Product</label><div class=\"control\"><input class=\"input\" name=\"name\" type=\"text\" placeholder=\"Pizza de anchoas\"></div></div><div class=\"field\"><label class=\"label\">Description</label><div class=\"control\"><input class=\"input\" name=\"description\" type=\"text\" placeholder=\"Pizza de muzza con anchoas\"></div></div><div class=\"field\"><label class=\"checkbox\"><input type=\"checkbox\" name=\"active\"> Active</label></div><div class=\"field\"><label class=\"label\">Price</label><div class=\"control\"><input class=\"input\" name=\"price\" type=\"number\" placeholder=\"6800\"></div></div><div class=\"field\"><label class=\"label\">Stock</label><div class=\"control\"><input class=\"input\" name=\"stock\" type=\"number\" placeholder=\"18\"></div></div><button class=\"button\">Add</button></form>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			} else {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input hx-get=\"/products/search\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" hx-swap=\"outerHTML\" hx-target=\"#product-list\" hx-trigger=\"keyup changed delay:500ms\" name=\"search\" placeholder=\"Search for a product\" autocomplete=\"off\" class=\"m-a\"> ")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input hx-get=\"/products/search\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" hx-swap=\"outerHTML\" hx-target=\"#product-list\" hx-trigger=\"keyup changed delay:500ms\" name=\"search\" placeholder=\"Search for a product\" autocomplete=\"off\" class=\"input\"> ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -100,7 +100,7 @@ func Products(products []model.Product, categories []model.Category, isAddingPro
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.EscapeString(strconv.FormatBool(!isAddingProducs)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/products.templ`, Line: 80, Col: 70}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/products.templ`, Line: 86, Col: 70}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {

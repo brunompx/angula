@@ -4,7 +4,7 @@ templ Page(nav bool) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
-			<title>Car Show</title>
+			<title>Angula</title>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
@@ -13,17 +13,17 @@ templ Page(nav bool) {
 		<body>
 			if nav {
 
-				<nav class="navbar is-sticky-top navigation" role="navigation" aria-label="main navigation">
-				<div class="container">
+				<nav class="navbar is-primary">
 				
+					
 					<div id="navbar-links" class="navbar-menu">
 						<div class="navbar-start ml-auto">
-							<a class="navbar-item" href="/" class="ml-6">Home</a>
-							<a class="navbar-item" href="/products" class="ml-6">Products</a>
+							<a class="navbar-item" href="/">Home</a>
+							<a class="navbar-item" href="/products">Products</a>
 						</div>
 				
 					</div>
-				</div>
+				
 				</nav>
 			}
 			{ children... }
