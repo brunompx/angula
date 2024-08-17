@@ -8,11 +8,13 @@ import (
 
 	"github.com/brunompx/angula/handlers"
 	"github.com/brunompx/angula/storage"
-	"github.com/go-sql-driver/mysql"
+	mysqld "github.com/go-sql-driver/mysql"
+	mysqlg "gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func main() {
-	cfg := mysql.Config{
+	cfg := mysqld.Config{
 		User:                 storage.Envs.DBUser,
 		Passwd:               storage.Envs.DBPassword,
 		Addr:                 storage.Envs.DBAddress,
@@ -22,7 +24,7 @@ func main() {
 		ParseTime:            true,
 	}
 
-	db, err := storage.NewMySQLStorage(cfg)
+	db, err := NewMySQLStorage(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -59,6 +61,28 @@ func main() {
 		Handler: router,
 	}
 	server.ListenAndServe()
+}
+
+func NewGMySQLStorage(cfg mysqld.Config) (*gorm.DB, error) {
+	//db, err := sql.Open("mysql", cfg.FormatDSN())
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+
+	// refer https://github.com/go-sql-driver/mysql#dsn-data-source-name for details
+	//dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysqlg.Open(cfg.FormatDSN()), &gorm.Config{})
+
+	return db, err
+}
+
+func NewMySQLStorage(cfg mysqld.Config) (*sql.DB, error) {
+	db, err := sql.Open("mysql", cfg.FormatDSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return db, nil
 }
 
 func initStorage(db *sql.DB) {

@@ -1,6 +1,9 @@
 package model
 
-import "strconv"
+import (
+	"strconv"
+	"time"
+)
 
 type Product struct {
 	ID          int    `json:"id"`
@@ -25,7 +28,28 @@ func (c *Category) IDS() string {
 }
 
 type Order struct {
+	ID           uint        `json:"id"`
+	User         string      `json:"user"`
+	Name         string      `json:"name"`
+	Comment      string      `json:"comment"`
+	ItemsDesc    string      `json:"items_desc"`
+	UpdatedAt    time.Time   `json:"updated_at"`
+	CheckoutAt   time.Time   `json:"checkout_at"`
+	Complete     bool        `json:"complete"`
+	Paid         bool        `json:"paid"`
+	Delivered    bool        `json:"delivered"`
+	Cancelled    bool        `json:"cancelled"`
+	Price        uint        `json:"price"`
+	DeliveryTime string      `json:"delivery_time"`
+	DeliveryInfo string      `json:"delivery_info"`
+	OrderItems   []OrderItem `json:"order_items"`
 }
 
 type OrderItem struct {
+	ID         uint `json:"id"`
+	OrderID    uint `json:"order_id"`
+	ProductID  uint `json:"product_id"`
+	Quantity   uint `json:"quantity"`
+	Price      uint `json:"price"`
+	PriceTotal uint `json:"price_total"`
 }
