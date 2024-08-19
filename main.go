@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -24,14 +23,14 @@ func main() {
 		ParseTime:            true,
 	}
 
-	db, err := NewGMySQLStorage(cfg)
+	db, err := NewSQLStorage(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	store := storage.NewStore(db)
 
-	initGStorage(db)
+	initStorage(db)
 
 	handler := handlers.New(store)
 
@@ -51,11 +50,12 @@ func main() {
 	router.HandleFunc("GET /", handler.HandleHome)
 
 	router.HandleFunc("GET /products", handler.HandleListProducts)
-	//router.HandleFunc("POST /products", handler.HandleAddProduct)
-	//router.HandleFunc("GET /products/search", handler.HandleSearchProduct)
+	router.HandleFunc("POST /products", handler.HandleAddProduct)
+	router.HandleFunc("GET /products/search", handler.HandleSearchProduct)
 	//router.HandleFunc("DELETE /products/{id}", handler.HandleDeleteProduct).Methods("DELETE")
 
 	router.HandleFunc("GET /orders", handler.HandleListOrders)
+	router.HandleFunc("GET /orders/edit", handler.HandleEditOrder)
 
 	server := http.Server{
 
@@ -65,38 +65,12 @@ func main() {
 	server.ListenAndServe()
 }
 
-func NewGMySQLStorage(cfg mysqld.Config) (*gorm.DB, error) {
-	//db, err := sql.Open("mysql", cfg.FormatDSN())
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-
-	// refer https://github.com/go-sql-driver/mysql#dsn-data-source-name for details
-	//dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+func NewSQLStorage(cfg mysqld.Config) (*gorm.DB, error) {
 	db, err := gorm.Open(mysqlg.Open(cfg.FormatDSN()), &gorm.Config{})
-
 	return db, err
 }
 
-func NewMySQLStorage(cfg mysqld.Config) (*sql.DB, error) {
-	db, err := sql.Open("mysql", cfg.FormatDSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return db, nil
-}
-
-func initStorage(db *sql.DB) {
-	err := db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Connected to Database!")
-}
-
-func initGStorage(db *gorm.DB) {
+func initStorage(db *gorm.DB) {
 	genericDB, err := db.DB()
 	if err != nil {
 		log.Fatal(err)

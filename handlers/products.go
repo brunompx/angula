@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
+	"github.com/brunompx/angula/components"
 	"github.com/brunompx/angula/model"
 	"github.com/brunompx/angula/views"
 )
@@ -25,16 +27,15 @@ func (h *Handler) HandleListProducts(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	views.OrderEdit(products, categories, isAddingProduct).Render(r.Context(), w)
+	views.Products(products, categories, isAddingProduct).Render(r.Context(), w)
 }
 
-/*
 func (h *Handler) HandleAddProduct(w http.ResponseWriter, r *http.Request) {
+
 	product := &model.Product{
 		User:        "bruno",
 		Name:        r.FormValue("name"),
 		Description: r.FormValue("description"),
-		Price:       r.FormValue("price"),
 		Category:    r.FormValue("category"),
 	}
 	if r.FormValue("active") == "on" {
@@ -44,12 +45,10 @@ func (h *Handler) HandleAddProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	product.Stock, _ = strconv.Atoi(r.FormValue("stock"))
 	product.CategoryId, _ = strconv.Atoi(r.FormValue("category"))
-
+	product.Price, _ = strconv.Atoi(r.FormValue("price"))
 	newProduct, err := h.store.CreateProduct(product)
 	if err != nil {
-
 		w.WriteHeader(http.StatusInternalServerError)
-
 		return
 	}
 
@@ -67,4 +66,3 @@ func (h *Handler) HandleSearchProduct(w http.ResponseWriter, r *http.Request) {
 
 	components.ProductsList(product).Render(r.Context(), w)
 }
-*/
