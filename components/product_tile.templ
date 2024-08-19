@@ -2,6 +2,7 @@ package components
 
 import "github.com/brunompx/angula/model"
 import "fmt"
+import "strconv"
 
 templ ProductTile(product *model.Product) {
 
@@ -9,7 +10,7 @@ templ ProductTile(product *model.Product) {
 		<div class="card match-height" >
 			<div class="card-content">
 				<p class="title">{ product.Name }</p>
-				<p class="subtitle">{ product.Description } { product.Price } { string(product.Stock) }</p>
+				<p class="subtitle">{ product.Description } { strconv.Itoa(product.Price) } { strconv.Itoa(product.Stock) }</p>
 			</div>
 			<footer class="card-footer">
 				<p class="card-footer-item">

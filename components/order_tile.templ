@@ -1,0 +1,47 @@
+package components
+
+import "github.com/brunompx/angula/model"
+import "fmt"
+
+templ OrderTile(order *model.Order) {
+
+	<div id={ fmt.Sprintf("order-%d", order.ID) } class="column is-3-widescreen is-4-desktop is-6-tablet">
+		<div class="card match-height" >
+			
+            <div class="card-content">
+				<p class="title">{ order.Name }</p>
+				<p class="subtitle">{ order.DeliveryInfo } { order.DeliveryTime } { string(order.Price) }</p>
+
+                <div class="content">
+                    
+                    for _, oi := range order.OrderItems {
+                        <p>{string(oi.ProductID)} - {string(oi.Quantity)} - {string(oi.Price)} - {string(oi.PriceTotal)}</p>
+                        <br />
+                    }
+
+                </div>
+
+			</div>
+
+
+			<footer class="card-footer">
+				<p class="card-footer-item">
+				<span>
+					<a 
+						hx-delete={ fmt.Sprintf("/order/%d", order.ID) }
+						hx-swap="delete"
+						hx-target={ fmt.Sprintf("#order-%d", order.ID) }
+						class="inline-flex items-center font-semibold text-dark" >
+						Delete
+					</a>
+				</span>
+				</p>
+				<p class="card-footer-item">
+				<span> <a href="#">Edit</a> </span>
+				</p>
+			</footer>
+
+		</div>
+	</div>
+
+}

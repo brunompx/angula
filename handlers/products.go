@@ -2,9 +2,7 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 
-	"github.com/brunompx/angula/components"
 	"github.com/brunompx/angula/model"
 	"github.com/brunompx/angula/views"
 )
@@ -27,9 +25,10 @@ func (h *Handler) HandleListProducts(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	views.Products(products, categories, isAddingProduct).Render(r.Context(), w)
+	views.OrderEdit(products, categories, isAddingProduct).Render(r.Context(), w)
 }
 
+/*
 func (h *Handler) HandleAddProduct(w http.ResponseWriter, r *http.Request) {
 	product := &model.Product{
 		User:        "bruno",
@@ -68,3 +67,4 @@ func (h *Handler) HandleSearchProduct(w http.ResponseWriter, r *http.Request) {
 
 	components.ProductsList(product).Render(r.Context(), w)
 }
+*/

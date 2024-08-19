@@ -31,7 +31,7 @@ func Page(nav bool) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if nav {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"navbar is-primary\"><div id=\"navbar-links\" class=\"navbar-menu\"><div class=\"navbar-start ml-auto\"><a class=\"navbar-item\" href=\"/\">Home</a> <a class=\"navbar-item\" href=\"/products\">Products</a></div></div></nav>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"navbar is-primary\"><div id=\"navbar-links\" class=\"navbar-menu\"><div class=\"navbar-start ml-auto\"><a class=\"navbar-item\" href=\"/\">Home</a> <a class=\"navbar-item\" href=\"/products\">Products</a> <a class=\"navbar-item\" href=\"/orders\">Orders</a></div></div></nav>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

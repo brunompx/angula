@@ -24,14 +24,14 @@ func main() {
 		ParseTime:            true,
 	}
 
-	db, err := NewMySQLStorage(cfg)
+	db, err := NewGMySQLStorage(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	store := storage.NewStore(db)
 
-	initStorage(db)
+	initGStorage(db)
 
 	handler := handlers.New(store)
 
@@ -51,9 +51,11 @@ func main() {
 	router.HandleFunc("GET /", handler.HandleHome)
 
 	router.HandleFunc("GET /products", handler.HandleListProducts)
-	router.HandleFunc("POST /products", handler.HandleAddProduct)
-	router.HandleFunc("GET /products/search", handler.HandleSearchProduct)
+	//router.HandleFunc("POST /products", handler.HandleAddProduct)
+	//router.HandleFunc("GET /products/search", handler.HandleSearchProduct)
 	//router.HandleFunc("DELETE /products/{id}", handler.HandleDeleteProduct).Methods("DELETE")
+
+	router.HandleFunc("GET /orders", handler.HandleListOrders)
 
 	server := http.Server{
 
@@ -91,5 +93,17 @@ func initStorage(db *sql.DB) {
 		log.Fatal(err)
 	}
 
+	fmt.Println("Connected to Database!")
+}
+
+func initGStorage(db *gorm.DB) {
+	genericDB, err := db.DB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	pingErr := genericDB.Ping()
+	if pingErr != nil {
+		log.Fatal(err)
+	}
 	fmt.Println("Connected to Database!")
 }

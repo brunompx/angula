@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"database/sql"
+	"fmt"
 
 	"github.com/brunompx/angula/model"
 )
@@ -9,11 +9,39 @@ import (
 type StoreProduct interface {
 	GetProducts() ([]model.Product, error)
 	GetCategories() ([]model.Category, error)
-	CreateProduct(product *model.Product) (*model.Product, error)
-	DeleteProduct(id string) error
-	FindProduct(search string) ([]model.Product, error)
+	/*
+		GetCategories() ([]model.Category, error)
+		CreateProduct(product *model.Product) (*model.Product, error)
+		DeleteProduct(id string) error
+		FindProduct(search string) ([]model.Product, error)
+	*/
 }
 
+func (s *Storage) GetProducts() ([]model.Product, error) {
+
+	var products []model.Product
+	// Get all records
+	result := s.db.Find(&products)
+	// SELECT * FROM users;
+
+	//result.RowsAffected // returns found records count, equals `len(users)`
+	if result.Error != nil {
+		fmt.Println()
+	}
+
+	return products, nil
+}
+
+func (s *Storage) GetCategories() ([]model.Category, error) {
+	var categories []model.Category
+	result := s.db.Find(&categories)
+	if result.Error != nil {
+		fmt.Println()
+	}
+	return categories, nil
+}
+
+/*
 func (s *Storage) GetProducts() ([]model.Product, error) {
 	rows, err := s.db.Query("SELECT * FROM products")
 	if err != nil {
@@ -52,16 +80,6 @@ func (s *Storage) GetCategories() ([]model.Category, error) {
 }
 
 func (s *Storage) CreateProduct(p *model.Product) (*model.Product, error) {
-
-	//fmt.Println(p.User)
-	//fmt.Println(p.Name)
-	//fmt.Println(p.Description)
-	//fmt.Println(p.Active)
-	//fmt.Println(p.Price)
-	//fmt.Println(p.Description)
-	//fmt.Println(p.Stock)
-	//fmt.Println(p.Category)
-	//fmt.Println(p.CategoryId)
 
 	row, err := s.db.Exec("INSERT INTO products (user,name,description,active,price,stock,category,category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
 		p.User, p.Name, p.Description, p.Active, p.Price, p.Stock, p.Category, p.CategoryId)
@@ -110,3 +128,4 @@ func scanProduct(row *sql.Rows) (model.Product, error) {
 		&product.Active, &product.Price, &product.Stock, &product.Category, &product.CreatedAt, &product.CategoryId)
 	return product, err
 }
+*/

@@ -6,21 +6,21 @@ import (
 )
 
 type Product struct {
-	ID          int    `json:"id"`
-	User        string `json:"user"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Active      bool   `json:"active"`
-	Price       string `json:"price"`
-	Stock       int    `json:"stock"`
-	Category    string `json:"category"`
-	CreatedAt   string `json:"createdAt"`
-	CategoryId  int    `json:"category_id"`
+	ID          int       `gorm:"primaryKey;autoIncrement;column:id" json:"id"`
+	User        string    `gorm:"column:user;not null" json:"user"`
+	Name        string    `gorm:"column:name;not null" json:"name"`
+	Description string    `gorm:"column:description;not null" json:"description"`
+	Active      bool      `gorm:"column:active;not null" json:"active"`
+	Price       int       `gorm:"column:price;not null" json:"price"`
+	Stock       int       `gorm:"column:stock;not null" json:"stock"`
+	Category    string    `gorm:"column:category;not null" json:"category"`
+	CreatedAt   time.Time `gorm:"column:createdAt;not null;default:CURRENT_TIMESTAMP" json:"createdAt"`
+	CategoryId  int       `json:"category_id"`
 }
 
 type Category struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID   int    `gorm:"primaryKey;autoIncrement;column:id" json:"id"`
+	Name string `gorm:"column:name;not null" json:"name"`
 }
 
 func (c *Category) IDS() string {
@@ -28,28 +28,28 @@ func (c *Category) IDS() string {
 }
 
 type Order struct {
-	ID           uint        `json:"id"`
-	User         string      `json:"user"`
-	Name         string      `json:"name"`
-	Comment      string      `json:"comment"`
-	ItemsDesc    string      `json:"items_desc"`
-	UpdatedAt    time.Time   `json:"updated_at"`
-	CheckoutAt   time.Time   `json:"checkout_at"`
-	Complete     bool        `json:"complete"`
-	Paid         bool        `json:"paid"`
-	Delivered    bool        `json:"delivered"`
-	Cancelled    bool        `json:"cancelled"`
-	Price        uint        `json:"price"`
-	DeliveryTime string      `json:"delivery_time"`
-	DeliveryInfo string      `json:"delivery_info"`
-	OrderItems   []OrderItem `json:"order_items"`
+	ID           int         `gorm:"primaryKey;autoIncrement;column:id" json:"id"`
+	User         string      `gorm:"column:user;not null" json:"user"`
+	Name         string      `gorm:"column:name;not null" json:"name"`
+	Comment      string      `gorm:"column:comment;not null" json:"comment"`
+	ItemsDesc    string      `gorm:"column:itemsDesc;not null" json:"itemsDesc"`
+	UpdatedAt    time.Time   `gorm:"column:updatedAt;not null;default:CURRENT_TIMESTAMP" json:"updatedAt"`
+	CheckoutAt   time.Time   `gorm:"column:checkoutAt;not null;default:CURRENT_TIMESTAMP" json:"checkoutAt"`
+	Complete     bool        `gorm:"column:complete;not null" json:"complete"`
+	Paid         bool        `gorm:"column:paid;not null" json:"paid"`
+	Delivered    bool        `gorm:"column:delivered;not null" json:"delivered"`
+	Cancelled    bool        `gorm:"column:cancelled;not null" json:"cancelled"`
+	Price        int         `gorm:"column:price;not null" json:"price"`
+	DeliveryTime string      `gorm:"column:delivery_time;not null" json:"deliveryTime"`
+	DeliveryInfo string      `gorm:"column:delivery_info;not null" json:"deliveryInfo"`
+	OrderItems   []OrderItem `gorm:"foreignKey:OrderID" json:"orderItems"`
 }
 
 type OrderItem struct {
-	ID         uint `json:"id"`
-	OrderID    uint `json:"order_id"`
-	ProductID  uint `json:"product_id"`
-	Quantity   uint `json:"quantity"`
-	Price      uint `json:"price"`
-	PriceTotal uint `json:"price_total"`
+	ID         int `gorm:"primaryKey;autoIncrement;column:id" json:"id"`
+	OrderID    int `gorm:"column:order_id;not null" json:"orderId"`
+	ProductID  int `gorm:"column:product_id;not null" json:"productId"`
+	Quantity   int `gorm:"column:quantity;not null" json:"quantity"`
+	Price      int `gorm:"column:price;not null" json:"price"`
+	PriceTotal int `gorm:"column:price_total;not null" json:"priceTotal"`
 }

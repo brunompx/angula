@@ -1,0 +1,13 @@
+package components
+
+import "github.com/brunompx/angula/model"
+
+templ OrdersList(orders []model.Order) {
+
+	
+	<div id="order-list" class="columns is-multiline">
+		for _, order := range orders {
+			@OrderTile(&order)
+		}
+	</div>
+}
