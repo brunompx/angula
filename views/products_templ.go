@@ -42,7 +42,7 @@ func Products(products []model.Product, categories []model.Category, isAddingPro
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><h2 class=\"section-title\">Products List</h2><div class=\"flex w-2/3 my-4 mx-2 justify-around m-a\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><h2 class=\"section-title\">Products List</h2><div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

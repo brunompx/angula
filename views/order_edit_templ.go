@@ -12,7 +12,7 @@ import "github.com/brunompx/angula/model"
 import "github.com/brunompx/angula/components"
 import "strconv"
 
-func OrderEdit(products []model.Product, categories []model.Category, isAddingProducs bool) templ.Component {
+func OrderEdit(products []model.Product, order model.Order, isAddingProducs bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -42,52 +42,16 @@ func OrderEdit(products []model.Product, categories []model.Category, isAddingPr
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><div class=\"columns is-multiline is-mobile\"><div class=\"column\"><form class=\"box\" hx-post=\"/products\" hx-swap=\"afterbegin\" hx-target=\"#product-list\"><div class=\"field\"><label class=\"label\">Category</label><div class=\"select\"><select id=\"category\" name=\"category\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><div class=\"columns is-multiline is-mobile\"><div class=\"column\"><form class=\"box\" hx-post=\"/products\" hx-swap=\"afterbegin\" hx-target=\"#product-list\"><div class=\"field\"><label class=\"label\">Name</label><div class=\"control\"><input class=\"input\" name=\"name\" type=\"text\" placeholder=\"Sarah\"></div></div><div class=\"field\"><label class=\"label\">Delivery Time</label><div class=\"control\"><input class=\"input\" name=\"DeliveryTime\" type=\"text\" placeholder=\"8:30 pm\"></div></div><div class=\"field\"><label class=\"label\">Delivery Info</label><div class=\"control\"><input class=\"input\" name=\"DeliveryInfo\" type=\"text\" placeholder=\"takeaway\"></div></div><div class=\"field\"><label class=\"checkbox\"><input type=\"checkbox\" name=\"Paid\"> Paid</label></div><div class=\"field\"><label class=\"checkbox\"><input type=\"checkbox\" name=\"Delivered\"> Delivered</label></div></form><button class=\"button\" hx-get=\"/products\" hx-swap=\"outerHTML\" hx-target=\"body\" name=\"isAddingProduct\" value=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for _, category := range categories {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<option value=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var3 string
-				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(category.IDS())
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/order_edit.templ`, Line: 25, Col: 74}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var4 string
-				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(category.Name)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/order_edit.templ`, Line: 25, Col: 92}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option>")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select></div></div><div class=\"field\"><label class=\"label\">Product</label><div class=\"control\"><input class=\"input\" name=\"name\" type=\"text\" placeholder=\"Pizza de anchoas\"></div></div><div class=\"field\"><label class=\"label\">Description</label><div class=\"control\"><input class=\"input\" name=\"description\" type=\"text\" placeholder=\"Pizza de muzza con anchoas\"></div></div><div class=\"field\"><label class=\"checkbox\"><input type=\"checkbox\" name=\"active\"> Active</label></div><div class=\"field\"><label class=\"label\">Price</label><div class=\"control\"><input class=\"input\" name=\"price\" type=\"number\" placeholder=\"6800\"></div></div><div class=\"field\"><label class=\"label\">Stock</label><div class=\"control\"><input class=\"input\" name=\"stock\" type=\"number\" placeholder=\"18\"></div></div></form><button class=\"button\" hx-get=\"/products\" hx-swap=\"outerHTML\" hx-target=\"body\" name=\"isAddingProduct\" value=\"")
+			var templ_7745c5c3_Var3 string
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(templ.EscapeString(strconv.FormatBool(!isAddingProducs)))
 			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/order_edit.templ`, Line: 56, Col: 92}
 			}
-			var templ_7745c5c3_Var5 string
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.EscapeString(strconv.FormatBool(!isAddingProducs)))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/order_edit.templ`, Line: 68, Col: 92}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -95,7 +59,7 @@ func OrderEdit(products []model.Product, categories []model.Category, isAddingPr
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.ProductsPanel(products).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = components.OrderRigthPanel(products).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

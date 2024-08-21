@@ -39,6 +39,7 @@ type Order struct {
 	Paid         bool        `gorm:"column:paid;not null" json:"paid"`
 	Delivered    bool        `gorm:"column:delivered;not null" json:"delivered"`
 	Cancelled    bool        `gorm:"column:cancelled;not null" json:"cancelled"`
+	Temp         bool        `gorm:"column:temp;not null" json:"temp"`
 	Price        int         `gorm:"column:price;not null" json:"price"`
 	DeliveryTime string      `gorm:"column:delivery_time;not null" json:"deliveryTime"`
 	DeliveryInfo string      `gorm:"column:delivery_info;not null" json:"deliveryInfo"`
@@ -46,10 +47,11 @@ type Order struct {
 }
 
 type OrderItem struct {
-	ID         int `gorm:"primaryKey;autoIncrement;column:id" json:"id"`
-	OrderID    int `gorm:"column:order_id;not null" json:"orderId"`
-	ProductID  int `gorm:"column:product_id;not null" json:"productId"`
-	Quantity   int `gorm:"column:quantity;not null" json:"quantity"`
-	Price      int `gorm:"column:price;not null" json:"price"`
-	PriceTotal int `gorm:"column:price_total;not null" json:"priceTotal"`
+	ID          int    `gorm:"primaryKey;autoIncrement;column:id" json:"id"`
+	OrderID     int    `gorm:"column:order_id;not null" json:"orderId"`
+	ProductID   int    `gorm:"column:product_id;not null" json:"productId"`
+	Quantity    int    `gorm:"column:quantity;not null" json:"quantity"`
+	Price       int    `gorm:"column:price;not null" json:"price"`
+	PriceTotal  int    `gorm:"column:price_total;not null" json:"priceTotal"`
+	ProductName string `gorm:"column:product_name;not null" json:"productName"`
 }

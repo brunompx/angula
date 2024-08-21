@@ -4,7 +4,7 @@ import "github.com/brunompx/angula/model"
 import "github.com/brunompx/angula/components"
 import "strconv"
 
-templ OrderEdit(products []model.Product, categories []model.Category, isAddingProducs bool) {
+templ OrderEdit(products []model.Product, order model.Order, isAddingProducs bool) {
 	@Page(true) {
 		<section class="section pb-0">
 			<div class="container">
@@ -18,44 +18,32 @@ templ OrderEdit(products []model.Product, categories []model.Category, isAddingP
                         >
 
                             <div class="field">
-                                <label class="label">Category</label>
-                                <div class="select">
-                                    <select id="category" name="category">
-                                        for _, category := range categories {
-                                            <option value={ category.IDS() }>{ category.Name }</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                            <label class="label">Product</label>
+                            <label class="label">Name</label>
                                 <div class="control">
-                                    <input class="input"  name="name" type="text" placeholder="Pizza de anchoas">
+                                    <input class="input"  name="name" type="text" placeholder="Sarah">
                                 </div>
                             </div>
                             <div class="field">
-                            <label class="label">Description</label>
+                            <label class="label">Delivery Time</label>
                                 <div class="control">
-                                    <input class="input"  name="description" type="text" placeholder="Pizza de muzza con anchoas">
+                                    <input class="input"  name="DeliveryTime" type="text" placeholder="8:30 pm">
+                                </div>
+                            </div>
+                            <div class="field">
+                            <label class="label">Delivery Info</label>
+                                <div class="control">
+                                    <input class="input"  name="DeliveryInfo" type="text" placeholder="takeaway">
                                 </div>
                             </div>
                             <div class="field">
                             <label class="checkbox">
-                                <input type="checkbox" name="active"/>   Active
+                                <input type="checkbox" name="Paid"/>   Paid
                             </label>
                             </div>
                             <div class="field">
-                            <label class="label">Price</label>
-                                <div class="control">
-                                    <input class="input"  name="price" type="number" placeholder="6800">
-                                </div>
-                            </div>
-                            <div class="field">
-                            <label class="label">Stock</label>
-                                <div class="control">
-                                    <input class="input"  name="stock" type="number" placeholder="18">
-                                </div>
+                            <label class="checkbox">
+                                <input type="checkbox" name="Delivered"/>   Delivered
+                            </label>
                             </div>
 
                         </form>
@@ -72,7 +60,7 @@ templ OrderEdit(products []model.Product, categories []model.Category, isAddingP
                     </div>
 
                     <div class="column">
-                        @components.ProductsPanel(products)
+                        @components.OrderRigthPanel(products)
                     </div>
                 </div>
                 
