@@ -29,20 +29,20 @@ func (c *Category) IDS() string {
 
 type Order struct {
 	ID           int         `gorm:"primaryKey;autoIncrement;column:id" json:"id"`
-	User         string      `gorm:"column:user;not null" json:"user"`
-	Name         string      `gorm:"column:name;not null" json:"name"`
-	Comment      string      `gorm:"column:comment;not null" json:"comment"`
-	ItemsDesc    string      `gorm:"column:itemsDesc;not null" json:"itemsDesc"`
+	User         string      `gorm:"column:user;" json:"user"`
+	Name         string      `gorm:"column:name;" json:"name"`
+	Comment      string      `gorm:"column:comment;" json:"comment"`
+	ItemsDesc    string      `gorm:"column:itemsDesc" json:"itemsDesc"`
 	UpdatedAt    time.Time   `gorm:"column:updatedAt;not null;default:CURRENT_TIMESTAMP" json:"updatedAt"`
 	CheckoutAt   time.Time   `gorm:"column:checkoutAt;not null;default:CURRENT_TIMESTAMP" json:"checkoutAt"`
-	Complete     bool        `gorm:"column:complete;not null" json:"complete"`
-	Paid         bool        `gorm:"column:paid;not null" json:"paid"`
-	Delivered    bool        `gorm:"column:delivered;not null" json:"delivered"`
-	Cancelled    bool        `gorm:"column:cancelled;not null" json:"cancelled"`
+	Complete     bool        `gorm:"column:complete" json:"complete"`
+	Paid         bool        `gorm:"column:paid" json:"paid"`
+	Delivered    bool        `gorm:"column:delivered" json:"delivered"`
+	Cancelled    bool        `gorm:"column:cancelled" json:"cancelled"`
 	Temp         bool        `gorm:"column:temp;not null" json:"temp"`
-	Price        int         `gorm:"column:price;not null" json:"price"`
-	DeliveryTime string      `gorm:"column:delivery_time;not null" json:"deliveryTime"`
-	DeliveryInfo string      `gorm:"column:delivery_info;not null" json:"deliveryInfo"`
+	Price        int         `gorm:"column:price" json:"price"`
+	DeliveryTime string      `gorm:"column:delivery_time" json:"deliveryTime"`
+	DeliveryInfo string      `gorm:"column:delivery_info" json:"deliveryInfo"`
 	OrderItems   []OrderItem `gorm:"foreignKey:OrderID" json:"orderItems"`
 }
 

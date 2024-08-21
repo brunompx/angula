@@ -27,14 +27,10 @@ func (h *Handler) HandleEditOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var categories []model.Category
-	if isAddingProduct {
-		categories, err = h.store.GetCategories()
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
+	order := model.Order{
+		Temp: true,
 	}
+	h.store.CreateOrder(&order)
 
-	views.OrderEdit(products, categories, isAddingProduct).Render(r.Context(), w)
+	views.OrderEdit(products, order, isAddingProduct).Render(r.Context(), w)
 }

@@ -19,3 +19,11 @@ func (s *Storage) GetOrders() ([]model.Order, error) {
 	}
 	return orders, nil
 }
+
+func (s *Storage) CreateOrder(o *model.Order) (*model.Order, error) {
+	result := s.db.Create(&o)
+	if result.Error != nil {
+		fmt.Println(result.Error)
+	}
+	return o, nil
+}
