@@ -24,7 +24,7 @@ templ ProductsPanel(products []model.Product) {
 						class="button"
 						hx-post="/orders/orderitem"
 						hx-swap="outerHTML"
-						hx-target="body"
+                        hx-target="#order-items-panel"
 						name="productID"
 						value={ templ.EscapeString(strconv.Itoa(product.ID)) }
 					>

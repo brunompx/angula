@@ -3,9 +3,9 @@ package components
 import "github.com/brunompx/angula/model"
 import "strconv"
 
-templ OrderRigthPanel(items []model.OrderItem) {
+templ OrderItemsPanel(items []model.OrderItem) {
 
-    <article class="panel is-primary">
+    <article class="panel is-primary" id="order-items-panel">
         
         for _, item := range items {
             <a class="panel-block">

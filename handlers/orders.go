@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
+	"github.com/brunompx/angula/components"
 	"github.com/brunompx/angula/model"
 	"github.com/brunompx/angula/views"
 )
@@ -35,6 +37,10 @@ func (h *Handler) HandleEditOrder(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
 	productID, err := strconv.Atoi(r.URL.Query().Get("productID"))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	product, err := h.store.GetProductByID(productID)
 	if err != nil {
@@ -48,7 +54,29 @@ func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	oItem := model.OrderItem{}
+	addOrderItem(&order, product)
 
-	views.OrderEdit(products, order, isAddingProduct).Render(r.Context(), w)
+	components.OrderItemsPanel(order.OrderItems).Render(r.Context(), w)
+}
+
+func addOrderItem(order *model.Order, product model.Product) {
+	newItem := true
+	for i, item := range order.OrderItems {
+		if item.ProductID == product.ID {
+			oi := &order.OrderItems[i]
+			oi.Quantity += 1
+			oi.PriceTotal = product.Price * oi.Quantity
+			newItem = false
+		}
+	}
+	if newItem {
+		orderItem := model.OrderItem{
+			ProductID:  product.ID,
+			Price:      product.Price,
+			PriceTotal: product.Price,
+			Quantity:   1,
+		}
+		ois := &order.OrderItems
+		order.OrderItems = append(*ois, orderItem)
+	}
 }
