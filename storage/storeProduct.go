@@ -55,6 +55,15 @@ func (s *Storage) FindProduct(search string) ([]model.Product, error) {
 	return products, nil
 }
 
+func (s *Storage) GetProductByID(ID int) (model.Product, error) {
+	product := model.Product{ID: ID}
+	result := s.db.First(&product)
+	if result.Error != nil {
+		fmt.Println()
+	}
+	return product, nil
+}
+
 /*
 func (s *Storage) GetProducts() ([]model.Product, error) {
 	rows, err := s.db.Query("SELECT * FROM products")

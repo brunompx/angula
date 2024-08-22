@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/brunompx/angula/model"
 	"github.com/brunompx/angula/views"
@@ -27,10 +28,27 @@ func (h *Handler) HandleEditOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	order := model.Order{
-		Temp: true,
+	order, _ := h.store.GetTempOrder()
+
+	views.OrderEdit(products, order, isAddingProduct).Render(r.Context(), w)
+}
+
+func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
+	productID, err := strconv.Atoi(r.URL.Query().Get("productID"))
+
+	product, err := h.store.GetProductByID(productID)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
-	h.store.CreateOrder(&order)
+
+	order, err := h.store.FindTempOrder()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	oItem := model.OrderItem{}
 
 	views.OrderEdit(products, order, isAddingProduct).Render(r.Context(), w)
 }
