@@ -36,7 +36,8 @@ func (h *Handler) HandleEditOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
-	productID, err := strconv.Atoi(r.URL.Query().Get("productID"))
+
+	productID, err := strconv.Atoi(r.PathValue("productID"))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -47,6 +48,8 @@ func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	fmt.Println("----------------------------------")
+	fmt.Println("HandleAddOrderItem Product.ID: ", product.ID)
 
 	order, err := h.store.FindTempOrder()
 	if err != nil {
@@ -56,12 +59,16 @@ func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
 
 	addOrderItem(&order, product)
 
+	go h.store.UpdateOrder(&order)
+
 	components.OrderItemsPanel(order.OrderItems).Render(r.Context(), w)
 }
 
 func addOrderItem(order *model.Order, product model.Product) {
+
 	newItem := true
 	for i, item := range order.OrderItems {
+
 		if item.ProductID == product.ID {
 			oi := &order.OrderItems[i]
 			oi.Quantity += 1
@@ -71,10 +78,11 @@ func addOrderItem(order *model.Order, product model.Product) {
 	}
 	if newItem {
 		orderItem := model.OrderItem{
-			ProductID:  product.ID,
-			Price:      product.Price,
-			PriceTotal: product.Price,
-			Quantity:   1,
+			ProductID:   product.ID,
+			Price:       product.Price,
+			PriceTotal:  product.Price,
+			Quantity:    1,
+			ProductName: product.Name,
 		}
 		ois := &order.OrderItems
 		order.OrderItems = append(*ois, orderItem)

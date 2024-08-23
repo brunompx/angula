@@ -22,11 +22,9 @@ templ ProductsPanel(products []model.Product) {
 
 					<button
 						class="button"
-						hx-post="/orders/orderitem"
+                        hx-post={ "/orders/orderitem/" + templ.EscapeString(strconv.Itoa(product.ID)) }
 						hx-swap="outerHTML"
                         hx-target="#order-items-panel"
-						name="productID"
-						value={ templ.EscapeString(strconv.Itoa(product.ID)) }
 					>
 						<span class="icon"> 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

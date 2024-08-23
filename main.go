@@ -56,6 +56,7 @@ func main() {
 
 	router.HandleFunc("GET /orders", handler.HandleListOrders)
 	router.HandleFunc("GET /orders/edit", handler.HandleEditOrder)
+	router.HandleFunc("POST /orders/orderitem/{productID}", handler.HandleAddOrderItem)
 
 	server := http.Server{
 

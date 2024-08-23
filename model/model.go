@@ -43,7 +43,7 @@ type Order struct {
 	Price        int         `gorm:"column:price" json:"price"`
 	DeliveryTime string      `gorm:"column:delivery_time" json:"deliveryTime"`
 	DeliveryInfo string      `gorm:"column:delivery_info" json:"deliveryInfo"`
-	OrderItems   []OrderItem `gorm:"foreignKey:OrderID" json:"orderItems"`
+	OrderItems   []OrderItem `gorm:"foreignKey:OrderID;constraint:OnUpdate:CASCADE" json:"orderItems"`
 }
 
 type OrderItem struct {
