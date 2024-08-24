@@ -39,7 +39,7 @@ templ OrderItemsPanel(items []model.OrderItem) {
                     </button>
                     <button
                         class="button"
-                        hx-post={ "/orders/orderitem/" + templ.EscapeString(strconv.Itoa(item.ProductID)) }
+                        hx-delete={ "/orders/orderitem/" + templ.EscapeString(strconv.Itoa(item.ProductID)) }
                         hx-swap="outerHTML"
                         hx-target="#order-items-panel"
                     >
