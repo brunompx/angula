@@ -37,7 +37,7 @@ func (h *Handler) HandleEditOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
-
+	//start := time.Now()
 	productID, err := strconv.Atoi(r.PathValue("productID"))
 	if err != nil {
 		fmt.Println(err)
@@ -49,9 +49,6 @@ func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("----------------------------------")
-	fmt.Println("HandleAddOrderItem Product.ID: ", product.ID)
-
 	order, err := h.store.FindTempOrder()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -61,7 +58,7 @@ func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
 	addOrderItem(&order, product)
 
 	go h.store.UpdateOrder(&order)
-
+	//log.Printf("Binomial took %s", time.Since(start))
 	components.OrderItemsPanel(order.OrderItems).Render(r.Context(), w)
 }
 
@@ -104,37 +101,38 @@ func (h *Handler) HandleRemoveOrderItem(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	deleteOrderItem(&order, productID)
+	//fmt.Println("deleteOrderItem IO------------------: ", productID)
+	//for _, o := range order.OrderItems {
+	//	fmt.Println("deleteOrderItem PRE productID: ", o.ProductID)
+	//	fmt.Println("deleteOrderItem PRE  Quantity: ", o.Quantity)
+	//}
 
-	go h.store.UpdateOrder(&order)
+	shouldDelete, orderItem := deleteOrderItem(&order, productID)
+
+	if shouldDelete {
+		go h.store.DeleteOrderItem(&order, &orderItem)
+	} else {
+		go h.store.UpdateOrder(&order)
+	}
 
 	components.OrderItemsPanel(order.OrderItems).Render(r.Context(), w)
 }
 
-func deleteOrderItem(order *model.Order, productID int) {
+func deleteOrderItem(order *model.Order, productID int) (bool, model.OrderItem) {
+	shouldDelete := false
+	orderItem := model.OrderItem{}
 	for i, item := range order.OrderItems {
 		if item.ProductID == productID {
-
-			fmt.Println("deleteOrderItem IO------------------: ", productID)
-
-			for _, o := range order.OrderItems {
-				fmt.Println("deleteOrderItem PRE productID: ", o.ProductID)
-				fmt.Println("deleteOrderItem PRE  Quantity: ", o.Quantity)
-			}
-
 			oi := &order.OrderItems[i]
 			if oi.Quantity == 1 {
+				shouldDelete = true
+				orderItem = item
 				order.OrderItems = slices.Delete(order.OrderItems, i, i+1)
 			} else {
 				oi.Quantity -= 1
 				oi.PriceTotal = oi.PriceTotal - oi.Price
 			}
-
-			for _, o := range order.OrderItems {
-				fmt.Println("deleteOrderItem POS productID: ", o.ProductID)
-				fmt.Println("deleteOrderItem POS  Quantity: ", o.Quantity)
-			}
-
 		}
 	}
+	return shouldDelete, orderItem
 }

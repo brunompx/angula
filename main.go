@@ -60,7 +60,6 @@ func main() {
 	router.HandleFunc("DELETE /orders/orderitem/{productID}", handler.HandleRemoveOrderItem)
 
 	server := http.Server{
-
 		Addr:    ":8080",
 		Handler: router,
 	}

@@ -60,10 +60,12 @@ func (s *Storage) UpdateOrder(order *model.Order) error {
 	//fmt.Println("UpdateOrder Quantity: ", o.Quantity)
 	//}
 
-	//result := s.db.Save(&order)
-
 	result := s.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&order)
 
 	return result.Error
+}
 
+func (s *Storage) DeleteOrderItem(order *model.Order, orderItem *model.OrderItem) error {
+	result := s.db.Delete(&orderItem)
+	return result.Error
 }

@@ -1,0 +1,92 @@
+package components
+
+import "github.com/brunompx/angula/model"
+import "strconv"
+
+templ ProductForm(categories []model.Category, isAddingProducs bool) {
+
+    <div>
+        if isAddingProducs {
+            <form
+                class="box"
+                hx-post="/products"
+                hx-swap="afterbegin"
+                hx-target="#product-list"
+            >
+
+                <div class="field">
+                    <label class="label">Category</label>
+                    <div class="select">
+                        <select id="category" name="category">
+                            for _, category := range categories {
+                                <option value={ category.IDS() }>{ category.Name }</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                <label class="label">Product</label>
+                    <div class="control">
+                        <input class="input"  name="name" type="text" placeholder="Pizza de anchoas">
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">Description</label>
+                    <div class="control">
+                        <input class="input"  name="description" type="text" placeholder="Pizza de muzza con anchoas">
+                    </div>
+                </div>
+                <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="active"/>   Active
+                </label>
+                </div>
+                <div class="field">
+                <label class="label">Price</label>
+                    <div class="control">
+                        <input class="input"  name="price" type="number" placeholder="6800">
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">Stock</label>
+                    <div class="control">
+                        <input class="input"  name="stock" type="number" placeholder="18">
+                    </div>
+                </div>
+
+                <button class="button">
+                    Add
+                </button>
+            </form>
+        } else {
+            <input
+                hx-get="/products/search"
+                hx-trigger="keyup changed delay:500ms"
+                type="text"
+                hx-swap="outerHTML"
+                hx-target="#product-list"
+                hx-trigger="keyup changed delay:500ms"
+                name="search"
+                placeholder="Search for a product"
+                autocomplete="off"
+                class="input"
+            />
+        }
+        <button
+            class="button"
+            hx-get="/products"
+            hx-swap="outerHTML"
+            hx-target="body"
+            name="isAddingProduct"
+            value={ templ.EscapeString(strconv.FormatBool(!isAddingProducs)) }
+        >
+            if isAddingProducs {
+                Cancel 
+            } else {
+                Add Product
+            }
+        </button>
+    </div>
+
+}

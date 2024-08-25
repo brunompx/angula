@@ -2,7 +2,6 @@ package views
 
 import "github.com/brunompx/angula/model"
 import "github.com/brunompx/angula/components"
-import "strconv"
 
 templ OrderEdit(products []model.Product, order model.Order, isAddingProducs bool) {
 	@Page(true) {
@@ -11,64 +10,7 @@ templ OrderEdit(products []model.Product, order model.Order, isAddingProducs boo
                 <div class="columns is-multiline is-mobile">
 
                     <div class="column">
-                        <form class="box"
-                            hx-post="/products"
-                            hx-swap="afterbegin"
-                            hx-target="#product-list"
-                        >
-                            <input name="ID" type="hidden" value={ strconv.Itoa(order.ID) }>
-                            <div class="field">
-                            <label class="label">Name</label>
-                                <div class="control">
-                                    <input class="input"  name="name" type="text" value={ order.Name }>
-                                </div>
-                            </div>
-                            <div class="field">
-                            <label class="label">Delivery Time</label>
-                                <div class="control">
-                                    <input class="input"  name="DeliveryTime" type="text" value={ order.DeliveryTime }>
-                                </div>
-                            </div>
-                            <div class="field">
-                            <label class="label">Delivery Info</label>
-                                <div class="control">
-                                    <input class="input"  name="DeliveryInfo" type="text" value={ order.DeliveryInfo }>
-                                </div>
-                            </div>
-                            <div class="columns is-multiline is-mobile">
-                                <div class="column">
-                                    <label class="checkbox">
-                                        if order.Paid {
-                                            <input type="checkbox" name="Paid" checked/>  
-                                        } else {
-                                            <input type="checkbox" name="Paid" /> 
-                                        }  
-                                        Paid
-                                    </label>
-                                </div>
-                                <div class="column">
-                                    <label class="checkbox">
-                                        if order.Delivered {
-                                            <input type="checkbox" name="Delivered" checked/>  
-                                        } else {
-                                            <input type="checkbox" name="Delivered" /> 
-                                        }  
-                                        Delivered
-                                    </label>
-                                </div>
-                            </div>
-
-                        </form>
-                        <button
-                            class="button"
-                            hx-get="/products"
-                            hx-swap="outerHTML"
-                            hx-target="body"
-                            name="isAddingProduct"
-                            value={ templ.EscapeString(strconv.FormatBool(!isAddingProducs)) }
-                        >
-                            Add
-                        </button>
+                        @components.OrderForm(order)
                     </div>
 
                     <div class="column">
