@@ -66,7 +66,6 @@ templ ProductForm(categories []model.Category, isAddingProducs bool) {
                 type="text"
                 hx-swap="outerHTML"
                 hx-target="#product-list"
-                hx-trigger="keyup changed delay:500ms"
                 name="search"
                 placeholder="Search for a product"
                 autocomplete="off"

@@ -49,69 +49,72 @@ func OrderForm(order model.Order) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(order.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 17, Col: 80}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 17, Col: 79}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></div></div><div class=\"field\"><label class=\"label\">Delivery Time</label><div class=\"control\"><input class=\"input\" name=\"DeliveryTime\" type=\"text\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-patch=\"/orders\" hx-swap=\"none\" hx-target=\"#order-form\" hx-trigger=\"keyup changed delay:500ms\"></div></div><div class=\"field\"><label class=\"label\">Delivery Time</label><div class=\"control\"><input class=\"input\" name=\"DeliveryTime\" type=\"text\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(order.DeliveryTime)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 23, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 28, Col: 96}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></div></div><div class=\"field\"><label class=\"label\">Delivery Info</label><div class=\"control\"><input class=\"input\" name=\"DeliveryInfo\" type=\"text\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-patch=\"/orders\" hx-swap=\"none\" hx-target=\"#order-form\" hx-trigger=\"keyup changed delay:500ms\"></div></div><div class=\"field\"><label class=\"label\">Delivery Info</label><div class=\"control\"><input class=\"input\" name=\"DeliveryInfo\" type=\"text\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(order.DeliveryInfo)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 29, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 39, Col: 96}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></div></div><div class=\"columns is-multiline is-mobile\"><div class=\"column\"><label class=\"checkbox\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-patch=\"/orders\" hx-swap=\"none\" hx-target=\"#order-form\" hx-trigger=\"keyup changed delay:500ms\"></div></div><div class=\"columns is-multiline is-mobile\"><div class=\"column\"><label class=\"checkbox\"><input type=\"checkbox\" name=\"Paid\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if order.Paid {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"checkbox\" name=\"Paid\" checked> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"checkbox\" name=\"Paid\"> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" checked")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("Paid</label></div><div class=\"column\"><label class=\"checkbox\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-patch=\"/orders\" hx-swap=\"none\" hx-target=\"#order-form\" hx-trigger=\"change\"> Paid</label></div><div class=\"column\"><label class=\"checkbox\"><input type=\"checkbox\" name=\"Delivered\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if order.Delivered {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"checkbox\" name=\"Delivered\" checked> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"checkbox\" name=\"Delivered\"> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" checked")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("Delivered</label></div></div></form><button class=\"button\" hx-get=\"/products\" hx-swap=\"outerHTML\" hx-target=\"body\">Add</button>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-patch=\"/orders\" hx-swap=\"none\" hx-target=\"#order-form\" hx-trigger=\"change\"> Delivered</label></div></div></form><button class=\"button\" hx-get=\"/products\" hx-swap=\"outerHTML\" hx-target=\"body\">Add</button> <button class=\"button\" hx-delete=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 string
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs("/orders/" + templ.EscapeString(strconv.Itoa(order.ID)))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 89, Col: 75}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\" hx-target=\"body\">Cancel</button>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

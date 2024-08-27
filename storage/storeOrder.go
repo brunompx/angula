@@ -65,7 +65,21 @@ func (s *Storage) UpdateOrder(order *model.Order) error {
 	return result.Error
 }
 
-func (s *Storage) DeleteOrderItem(order *model.Order, orderItem *model.OrderItem) error {
+func (s *Storage) DeleteOrder(orderID int) error {
+
+	// Delete all items for the order
+	resultItems := s.db.Where("order_id = ?", orderID).Delete(&model.OrderItem{})
+	if resultItems.Error != nil {
+		fmt.Println("Error-CreateOrder: ", resultItems.Error)
+	}
+
+	// Delete the order
+	result := s.db.Delete(&model.Order{}, orderID)
+
+	return result.Error
+}
+
+func (s *Storage) DeleteOrderItem(orderItem *model.OrderItem) error {
 	result := s.db.Delete(&orderItem)
 	return result.Error
 }

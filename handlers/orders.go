@@ -3,11 +3,9 @@ package handlers
 import (
 	"fmt"
 	"net/http"
-	"slices"
 	"strconv"
 
 	"github.com/brunompx/angula/components"
-	"github.com/brunompx/angula/model"
 	"github.com/brunompx/angula/views"
 )
 
@@ -36,64 +34,32 @@ func (h *Handler) HandleEditOrder(w http.ResponseWriter, r *http.Request) {
 	views.OrderEdit(products, order, isAddingProduct).Render(r.Context(), w)
 }
 
-func (h *Handler) HandleAddOrderItem(w http.ResponseWriter, r *http.Request) {
-	//start := time.Now()
-	productID, err := strconv.Atoi(r.PathValue("productID"))
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	product, err := h.store.GetProductByID(productID)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	order, err := h.store.FindTempOrder()
+func (h *Handler) HandleDeleteOrder(w http.ResponseWriter, r *http.Request) {
+	ordereID, err := strconv.Atoi(r.PathValue("orderID"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	addOrderItem(&order, product)
-
-	go h.store.UpdateOrder(&order)
-	//log.Printf("Binomial took %s", time.Since(start))
-	components.OrderItemsPanel(order.OrderItems).Render(r.Context(), w)
-}
-
-func addOrderItem(order *model.Order, product model.Product) {
-
-	newItem := true
-	for i, item := range order.OrderItems {
-
-		if item.ProductID == product.ID {
-			oi := &order.OrderItems[i]
-			oi.Quantity += 1
-			oi.PriceTotal = product.Price * oi.Quantity
-			newItem = false
-		}
-	}
-	if newItem {
-		orderItem := model.OrderItem{
-			ProductID:   product.ID,
-			Price:       product.Price,
-			PriceTotal:  product.Price,
-			Quantity:    1,
-			ProductName: product.Name,
-		}
-		ois := &order.OrderItems
-		order.OrderItems = append(*ois, orderItem)
-	}
-}
-
-func (h *Handler) HandleRemoveOrderItem(w http.ResponseWriter, r *http.Request) {
-
-	productID, err := strconv.Atoi(r.PathValue("productID"))
+	err = h.store.DeleteOrder(ordereID)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
+	h.HandleListOrders(w, r)
+}
+
+func (h *Handler) HandleUpdateOrder(w http.ResponseWriter, r *http.Request) {
+	ordereName := r.FormValue("name")
+	DeliveryTime := r.FormValue("DeliveryTime")
+	DeliveryInfo := r.FormValue("DeliveryInfo")
+	Delivered := r.FormValue("Delivered") == "on"
+
+	fmt.Println("HandleUpdateOrder name: ", ordereName)
+	fmt.Println("HandleUpdateOrder DeliveryTime: ", DeliveryTime)
+	fmt.Println("HandleUpdateOrder DeliveryInfo: ", DeliveryInfo)
+	fmt.Println("HandleUpdateOrder Delivered: ", Delivered)
 
 	order, err := h.store.FindTempOrder()
 	if err != nil {
@@ -101,38 +67,8 @@ func (h *Handler) HandleRemoveOrderItem(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	//fmt.Println("deleteOrderItem IO------------------: ", productID)
-	//for _, o := range order.OrderItems {
-	//	fmt.Println("deleteOrderItem PRE productID: ", o.ProductID)
-	//	fmt.Println("deleteOrderItem PRE  Quantity: ", o.Quantity)
-	//}
+	//TODO: guardar cambios en el ORDER
 
-	shouldDelete, orderItem := deleteOrderItem(&order, productID)
-
-	if shouldDelete {
-		go h.store.DeleteOrderItem(&order, &orderItem)
-	} else {
-		go h.store.UpdateOrder(&order)
-	}
-
-	components.OrderItemsPanel(order.OrderItems).Render(r.Context(), w)
-}
-
-func deleteOrderItem(order *model.Order, productID int) (bool, model.OrderItem) {
-	shouldDelete := false
-	orderItem := model.OrderItem{}
-	for i, item := range order.OrderItems {
-		if item.ProductID == productID {
-			oi := &order.OrderItems[i]
-			if oi.Quantity == 1 {
-				shouldDelete = true
-				orderItem = item
-				order.OrderItems = slices.Delete(order.OrderItems, i, i+1)
-			} else {
-				oi.Quantity -= 1
-				oi.PriceTotal = oi.PriceTotal - oi.Price
-			}
-		}
-	}
-	return shouldDelete, orderItem
+	//h.HandleEditOrder(w, r)
+	components.OrderForm(order).Render(r.Context(), w)
 }

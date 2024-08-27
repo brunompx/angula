@@ -75,7 +75,7 @@ func ProductForm(categories []model.Category, isAddingProducs bool) templ.Compon
 				return templ_7745c5c3_Err
 			}
 		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input hx-get=\"/products/search\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" hx-swap=\"outerHTML\" hx-target=\"#product-list\" hx-trigger=\"keyup changed delay:500ms\" name=\"search\" placeholder=\"Search for a product\" autocomplete=\"off\" class=\"input\"> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input hx-get=\"/products/search\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" hx-swap=\"outerHTML\" hx-target=\"#product-list\" name=\"search\" placeholder=\"Search for a product\" autocomplete=\"off\" class=\"input\"> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -87,7 +87,7 @@ func ProductForm(categories []model.Category, isAddingProducs bool) templ.Compon
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(templ.EscapeString(strconv.FormatBool(!isAddingProducs)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/product_form.templ`, Line: 82, Col: 76}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/product_form.templ`, Line: 81, Col: 76}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {

@@ -41,7 +41,7 @@ func OrderEdit(products []model.Product, order model.Order, isAddingProducs bool
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><div class=\"columns is-multiline is-mobile\"><div class=\"column\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><div class=\"columns is-multiline is-mobile\"><div id=\"order-form\" class=\"column\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

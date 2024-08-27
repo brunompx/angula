@@ -9,7 +9,7 @@ templ OrderEdit(products []model.Product, order model.Order, isAddingProducs boo
 			<div class="container">
                 <div class="columns is-multiline is-mobile">
 
-                    <div class="column">
+                    <div id="order-form" class="column">
                         @components.OrderForm(order)
                     </div>
 
