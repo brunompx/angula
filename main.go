@@ -55,7 +55,7 @@ func main() {
 	//router.HandleFunc("DELETE /products/{id}", handler.HandleDeleteProduct).Methods("DELETE")
 
 	router.HandleFunc("GET /orders", handler.HandleListOrders)
-	//router.HandleFunc("POST /orders", handler.HandleAddOrder)
+	router.HandleFunc("POST /orders", handler.HandleAddOrder)
 	router.HandleFunc("PATCH /orders", handler.HandleUpdateOrder)
 	router.HandleFunc("GET /orders/edit", handler.HandleEditOrder)
 	router.HandleFunc("DELETE /orders/{orderID}", handler.HandleDeleteOrder)

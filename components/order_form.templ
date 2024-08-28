@@ -5,92 +5,94 @@ import "strconv"
 
 templ OrderForm(order model.Order) {
 
-    <form class="box"
-        hx-post="/products"
-        hx-swap="afterbegin"
-        hx-target="#product-list"
-    >
-        <input name="ID" type="hidden" value={ strconv.Itoa(order.ID) }>
-        <div class="field">
-        <label class="label">Name</label>
-            <div class="control">
-                <input class="input" name="name" type="text" value={ order.Name }
-                    hx-patch="/orders"
-                    hx-swap="none"
-                    hx-target="#order-form"
-                    hx-trigger="keyup changed delay:500ms"
-                />
-            </div>
-        </div>
-        <div class="field">
-        <label class="label">Delivery Time</label>
-            <div class="control">
-                <input class="input"  name="DeliveryTime" type="text" value={ order.DeliveryTime }
-                    hx-patch="/orders"
-                    hx-swap="none"
-                    hx-target="#order-form"
-                    hx-trigger="keyup changed delay:500ms"
-                />
-            </div>
-        </div>
-        <div class="field">
-        <label class="label">Delivery Info</label>
-            <div class="control">
-                <input class="input"  name="DeliveryInfo" type="text" value={ order.DeliveryInfo }
-                    hx-patch="/orders"
-                    hx-swap="none"
-                    hx-target="#order-form"
-                    hx-trigger="keyup changed delay:500ms"
-                />
-            </div>
-        </div>
-        <div class="columns is-multiline is-mobile">
-            <div class="column">
-                <label class="checkbox">
-                    <input type="checkbox" name="Paid"                     
-                        if order.Paid {
-                            checked
-                        }
+    <div class="container" id="formContainer">
+        <form class="box"
+            hx-post="/products"
+            hx-swap="afterbegin"
+            hx-target="#product-list"
+        >
+            <input name="ID" type="hidden" value={ strconv.Itoa(order.ID) }>
+            <div class="field">
+            <label class="label">Name</label>
+                <div class="control">
+                    <input class="input" name="name" type="text" value={ order.Name }
                         hx-patch="/orders"
                         hx-swap="none"
                         hx-target="#order-form"
-                        hx-trigger="change"
-                    />  
-                    Paid
-                </label>
+                        hx-trigger="keyup changed delay:500ms"
+                    />
+                </div>
             </div>
-            <div class="column">
-                <label class="checkbox">
-                    <input type="checkbox" name="Delivered"                     
-                        if order.Delivered {
-                            checked
-                        }
+            <div class="field">
+            <label class="label">Delivery Time</label>
+                <div class="control">
+                    <input class="input"  name="DeliveryTime" type="text" value={ order.DeliveryTime }
                         hx-patch="/orders"
                         hx-swap="none"
                         hx-target="#order-form"
-                        hx-trigger="change"
-                    />  
-                    Delivered
-                </label>
+                        hx-trigger="keyup changed delay:500ms"
+                    />
+                </div>
             </div>
-        </div>
+            <div class="field">
+            <label class="label">Delivery Info</label>
+                <div class="control">
+                    <input class="input"  name="DeliveryInfo" type="text" value={ order.DeliveryInfo }
+                        hx-patch="/orders"
+                        hx-swap="none"
+                        hx-target="#order-form"
+                        hx-trigger="keyup changed delay:500ms"
+                    />
+                </div>
+            </div>
+            <div class="columns is-multiline is-mobile">
+                <div class="column">
+                    <label class="checkbox">
+                        <input type="checkbox" name="Paid"                     
+                            if order.Paid {
+                                checked
+                            }
+                            hx-patch="/orders"
+                            hx-swap="none"
+                            hx-target="#order-form"
+                            hx-trigger="change"
+                        />  
+                        Paid
+                    </label>
+                </div>
+                <div class="column">
+                    <label class="checkbox">
+                        <input type="checkbox" name="Delivered"                     
+                            if order.Delivered {
+                                checked
+                            }
+                            hx-patch="/orders"
+                            hx-swap="none"
+                            hx-target="#order-form"
+                            hx-trigger="change"
+                        />  
+                        Delivered
+                    </label>
+                </div>
+            </div>
 
-    </form>
-    <button
-        class="button"
-        hx-get="/products"
-        hx-swap="outerHTML"
-        hx-target="body"
-    >
-        Add
-    </button>
-    <button
-        class="button"
-        hx-delete={ "/orders/" + templ.EscapeString(strconv.Itoa(order.ID)) }
-        hx-swap="outerHTML"
-        hx-target="body"
-    >
-        Cancel
-    </button>
-
+        </form>
+        @ValidationError("")
+        <button
+            class="button"
+            hx-post="/orders"
+            hx-swap="outerHTML"
+            hx-target="#orderFormError"
+        >
+            Create
+        </button>
+        <button
+            class="button"
+            hx-delete={ "/orders/" + templ.EscapeString(strconv.Itoa(order.ID)) }
+            hx-swap="outerHTML"
+            hx-target="body"
+        >
+            Cancel
+        </button>
+    </div>
 }

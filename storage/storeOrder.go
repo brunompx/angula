@@ -60,7 +60,11 @@ func (s *Storage) UpdateOrder(order *model.Order) error {
 	//fmt.Println("UpdateOrder Quantity: ", o.Quantity)
 	//}
 
-	result := s.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&order)
+	fmt.Println("UpdateOrder Paid: ", order.Paid)
+	fmt.Println("UpdateOrder Delivered: ", order.Delivered)
+
+	//Added .Select("*") to NOT only update non-zero fields, and includes the booleans
+	result := s.db.Session(&gorm.Session{FullSaveAssociations: true}).Select("*").Updates(&order)
 
 	return result.Error
 }

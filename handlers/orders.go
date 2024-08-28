@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/brunompx/angula/components"
 	"github.com/brunompx/angula/views"
@@ -51,15 +52,14 @@ func (h *Handler) HandleDeleteOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleUpdateOrder(w http.ResponseWriter, r *http.Request) {
-	ordereName := r.FormValue("name")
-	DeliveryTime := r.FormValue("DeliveryTime")
-	DeliveryInfo := r.FormValue("DeliveryInfo")
-	Delivered := r.FormValue("Delivered") == "on"
 
-	fmt.Println("HandleUpdateOrder name: ", ordereName)
-	fmt.Println("HandleUpdateOrder DeliveryTime: ", DeliveryTime)
-	fmt.Println("HandleUpdateOrder DeliveryInfo: ", DeliveryInfo)
-	fmt.Println("HandleUpdateOrder Delivered: ", Delivered)
+	fmt.Println("HandleUpdateOrder -------------------------------- ")
+
+	ordereName := r.FormValue("name")
+	deliveryTime := r.FormValue("DeliveryTime")
+	deliveryInfo := r.FormValue("DeliveryInfo")
+	paid := r.FormValue("Paid") == "on"
+	delivered := r.FormValue("Delivered") == "on"
 
 	order, err := h.store.FindTempOrder()
 	if err != nil {
@@ -67,8 +67,44 @@ func (h *Handler) HandleUpdateOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//TODO: guardar cambios en el ORDER
+	if len(strings.TrimSpace(ordereName)) != 0 {
+		fmt.Println("HandleUpdateOrder name: ", ordereName)
+		order.Name = ordereName
+	}
+	if len(strings.TrimSpace(deliveryTime)) != 0 {
+		fmt.Println("HandleUpdateOrder DeliveryTime: ", deliveryTime)
+		order.DeliveryTime = deliveryTime
+	}
+	if len(strings.TrimSpace(deliveryInfo)) != 0 {
+		fmt.Println("HandleUpdateOrder DeliveryInfo: ", deliveryInfo)
+		order.DeliveryInfo = deliveryInfo
+	}
+	fmt.Println("HandleUpdateOrder Paid: ", paid)
+	fmt.Println("HandleUpdateOrder Delivered: ", delivered)
 
-	//h.HandleEditOrder(w, r)
+	order.Paid = paid
+	order.Delivered = delivered
+
+	go h.store.UpdateOrder(&order)
+
 	components.OrderForm(order).Render(r.Context(), w)
+}
+
+func (h *Handler) HandleAddOrder(w http.ResponseWriter, r *http.Request) {
+	order, err := h.store.FindTempOrder()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	if len(strings.TrimSpace(order.Name)) == 0 {
+		components.ValidationError("Please set a Name to the order").Render(r.Context(), w)
+		return
+	}
+	if len(order.OrderItems) < 1 {
+		components.ValidationError("Add at leat one product").Render(r.Context(), w)
+		return
+	}
+	order.Temp = false
+	go h.store.UpdateOrder(&order)
+	h.HandleListOrders(w, r)
 }

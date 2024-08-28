@@ -29,14 +29,14 @@ func OrderForm(order model.Order) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form class=\"box\" hx-post=\"/products\" hx-swap=\"afterbegin\" hx-target=\"#product-list\"><input name=\"ID\" type=\"hidden\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container\" id=\"formContainer\"><form class=\"box\" hx-post=\"/products\" hx-swap=\"afterbegin\" hx-target=\"#product-list\"><input name=\"ID\" type=\"hidden\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(order.ID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 13, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 14, Col: 73}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -49,7 +49,7 @@ func OrderForm(order model.Order) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(order.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 17, Col: 79}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 18, Col: 83}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -62,7 +62,7 @@ func OrderForm(order model.Order) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(order.DeliveryTime)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 28, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 29, Col: 100}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -75,7 +75,7 @@ func OrderForm(order model.Order) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(order.DeliveryInfo)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 39, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 40, Col: 100}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -101,20 +101,28 @@ func OrderForm(order model.Order) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-patch=\"/orders\" hx-swap=\"none\" hx-target=\"#order-form\" hx-trigger=\"change\"> Delivered</label></div></div></form><button class=\"button\" hx-get=\"/products\" hx-swap=\"outerHTML\" hx-target=\"body\">Add</button> <button class=\"button\" hx-delete=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-patch=\"/orders\" hx-swap=\"none\" hx-target=\"#order-form\" hx-trigger=\"change\"> Delivered</label></div></div></form>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = ValidationError("").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"button\" hx-post=\"/orders\" hx-swap=\"outerHTML\" hx-target=\"#orderFormError\">Create</button> <button class=\"button\" hx-delete=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs("/orders/" + templ.EscapeString(strconv.Itoa(order.ID)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 89, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/order_form.templ`, Line: 91, Col: 79}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\" hx-target=\"body\">Cancel</button>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\" hx-target=\"body\">Cancel</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
