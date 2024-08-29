@@ -41,7 +41,7 @@ func Orders(orders []model.Order) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><h2 class=\"section-title\">Orders List</h2><div class=\"flex w-2/3 my-4 mx-2 justify-around m-a\"><input hx-get=\"/orders/search\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" hx-swap=\"outerHTML\" hx-target=\"#product-list\" hx-trigger=\"keyup changed delay:500ms\" name=\"search\" placeholder=\"Search for a product\" autocomplete=\"off\" class=\"input\"></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section pb-0\"><div class=\"container\"><h2 class=\"section-title\">Orders List</h2><div><input hx-get=\"/orders/search\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" hx-swap=\"outerHTML\" hx-target=\"#product-list\" hx-trigger=\"keyup changed delay:500ms\" name=\"search\" placeholder=\"Search for a product\" autocomplete=\"off\" class=\"input\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -36,6 +35,7 @@ func (h *Handler) HandleEditOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleDeleteOrder(w http.ResponseWriter, r *http.Request) {
+
 	ordereID, err := strconv.Atoi(r.PathValue("orderID"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -53,8 +53,6 @@ func (h *Handler) HandleDeleteOrder(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) HandleUpdateOrder(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println("HandleUpdateOrder -------------------------------- ")
-
 	ordereName := r.FormValue("name")
 	deliveryTime := r.FormValue("DeliveryTime")
 	deliveryInfo := r.FormValue("DeliveryInfo")
@@ -66,27 +64,19 @@ func (h *Handler) HandleUpdateOrder(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
 	if len(strings.TrimSpace(ordereName)) != 0 {
-		fmt.Println("HandleUpdateOrder name: ", ordereName)
 		order.Name = ordereName
 	}
 	if len(strings.TrimSpace(deliveryTime)) != 0 {
-		fmt.Println("HandleUpdateOrder DeliveryTime: ", deliveryTime)
 		order.DeliveryTime = deliveryTime
 	}
 	if len(strings.TrimSpace(deliveryInfo)) != 0 {
-		fmt.Println("HandleUpdateOrder DeliveryInfo: ", deliveryInfo)
 		order.DeliveryInfo = deliveryInfo
 	}
-	fmt.Println("HandleUpdateOrder Paid: ", paid)
-	fmt.Println("HandleUpdateOrder Delivered: ", delivered)
 
 	order.Paid = paid
 	order.Delivered = delivered
-
 	go h.store.UpdateOrder(&order)
-
 	components.OrderForm(order).Render(r.Context(), w)
 }
 
@@ -104,7 +94,8 @@ func (h *Handler) HandleAddOrder(w http.ResponseWriter, r *http.Request) {
 		components.ValidationError("Add at leat one product").Render(r.Context(), w)
 		return
 	}
+
 	order.Temp = false
 	go h.store.UpdateOrder(&order)
-	h.HandleListOrders(w, r)
+	w.Header().Add("Hx-Redirect", "/orders")
 }

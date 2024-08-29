@@ -66,3 +66,23 @@ func (h *Handler) HandleSearchProduct(w http.ResponseWriter, r *http.Request) {
 
 	components.ProductsList(product).Render(r.Context(), w)
 }
+
+func (h *Handler) HandleDeleteProduct(w http.ResponseWriter, r *http.Request) {
+
+	//productID, err := strconv.Atoi(r.PathValue("id"))
+	productID := r.PathValue("productID")
+	//if err != nil {
+	//	w.WriteHeader(http.StatusInternalServerError)
+	//	return
+	//}
+
+	err := h.store.DeleteProduct(productID)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	h.HandleListProducts(w, r)
+
+	//components.ProductsList(product).Render(r.Context(), w)
+}

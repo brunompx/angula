@@ -55,11 +55,6 @@ func (s *Storage) GetTempOrder() (model.Order, error) {
 
 func (s *Storage) UpdateOrder(order *model.Order) error {
 
-	//for _, o := range order.OrderItems {
-	//fmt.Println("UpdateOrder productID: ", o.ProductID)
-	//fmt.Println("UpdateOrder Quantity: ", o.Quantity)
-	//}
-
 	fmt.Println("UpdateOrder Paid: ", order.Paid)
 	fmt.Println("UpdateOrder Delivered: ", order.Delivered)
 

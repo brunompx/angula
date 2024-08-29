@@ -28,10 +28,10 @@ templ OrderTile(order *model.Order) {
 				<p class="card-footer-item">
 				<span>
 					<a 
-						hx-delete={ fmt.Sprintf("/order/%d", order.ID) }
+						hx-delete={ fmt.Sprintf("/orders/%d", order.ID) }
 						hx-swap="delete"
 						hx-target={ fmt.Sprintf("#order-%d", order.ID) }
-						class="inline-flex items-center font-semibold text-dark" >
+					>
 						Delete
 					</a>
 				</span>

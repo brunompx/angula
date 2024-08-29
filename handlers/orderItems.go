@@ -75,12 +75,6 @@ func (h *Handler) HandleRemoveOrderItem(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	//fmt.Println("deleteOrderItem IO------------------: ", productID)
-	//for _, o := range order.OrderItems {
-	//	fmt.Println("deleteOrderItem PRE productID: ", o.ProductID)
-	//	fmt.Println("deleteOrderItem PRE  Quantity: ", o.Quantity)
-	//}
-
 	shouldDelete, orderItem := deleteOrderItem(&order, productID)
 
 	if shouldDelete {

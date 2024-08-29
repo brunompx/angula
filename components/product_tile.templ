@@ -19,7 +19,7 @@ templ ProductTile(product *model.Product) {
 						hx-delete={ fmt.Sprintf("/products/%d", product.ID) }
 						hx-swap="delete"
 						hx-target={ fmt.Sprintf("#product-%d", product.ID) }
-						class="inline-flex items-center font-semibold text-dark" >
+					>
 						Delete
 					</a>
 				</span>
