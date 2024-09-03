@@ -9,11 +9,12 @@ import (
 	"github.com/brunompx/angula/storage"
 	mysqld "github.com/go-sql-driver/mysql"
 	mysqlg "gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func main() {
-	cfg := mysqld.Config{
+	/*cfg := mysqld.Config{
 		User:                 storage.Envs.DBUser,
 		Passwd:               storage.Envs.DBPassword,
 		Addr:                 storage.Envs.DBAddress,
@@ -21,9 +22,19 @@ func main() {
 		Net:                  "tcp",
 		AllowNativePasswords: true,
 		ParseTime:            true,
-	}
+	}*/
 
-	db, err := NewSQLStorage(cfg)
+	//dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	//db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	//dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
+	//db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		"localhost", "postgres", "postgres", "postgres", "5432")
+
+	//db, err := NewSQLStorage(cfg)
+	db, err := NewPostgresSQLStorage(dsn)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -71,6 +82,11 @@ func main() {
 
 func NewSQLStorage(cfg mysqld.Config) (*gorm.DB, error) {
 	db, err := gorm.Open(mysqlg.Open(cfg.FormatDSN()), &gorm.Config{})
+	return db, err
+}
+
+func NewPostgresSQLStorage(dsn string) (*gorm.DB, error) {
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	return db, err
 }
 
